@@ -4,7 +4,9 @@ This is a plugin for Piwik that generates reports about the IPv6 reach of your w
 
 ## Documentation
 
-I wrote an article about the development that lead to this plugin and explained how the plugin works internally. You can find the article at [Geekmonkey](http://geekmonkey.org/articles/33-tracking-the-ipv6-reach-of-your-website-with-piwik/).
+I wrote an article about the development that lead to this plugin and explained how the plugin works internally. You can find the article at [Geekmonkey](http://geekmonkey.org/articles/34-how-to-write-a-piwik-plugin)
+
+There is also a [short article](http://geekmonkey.org/articles/33-tracking-the-ipv6-reach-of-your-website-with-piwik/) that explains how to setup the plugin.
 
 ## Contribute 
 

@@ -1,4 +1,4 @@
-# IPv6USage
+# IPv6Usage
 
 This is a plugin for Piwik that generates reports about the IPv6 reach of your websites. It is written as a tracker plugin and directly hooks into the Piwik tracking call.
 

@@ -1,0 +1,19 @@
+{
+    "name": "IPv6Usage",
+    "description": "Piwik Plugin to track whether visitors are using IPv4 or IPv6",
+    "version": "0.1.0",
+    "keywords": ["ipv4", "ipv6"],
+    "homepage": "http://github.com/halfdan/IPv6Usage",
+    "license": "GPL-3.0+",
+    "authors": [
+        {
+            "name": "Fabian Becker",
+            "email": "halfdan@xnorfz.de",
+            "homepage": "http://geekproject.eu"
+        }
+    ],
+    "require": {
+        "piwik": ">=1.10.0",
+        "php": ">=5.3.0"
+    }
+}

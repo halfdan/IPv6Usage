@@ -10,4 +10,4 @@ There is also a [short article](http://geekmonkey.org/articles/33-tracking-the-i
 
 ## Contribute 
 
-If you are interested in contributing to this plugin, feel free to send pull requests!
+If you are interested in contributing to this plugin, feel free to send pull requests or create issues.

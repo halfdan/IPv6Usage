@@ -8,6 +8,15 @@
  * @package Piwik_IPv6Usage
  */
 
+	function ipv6_reverse_nibbles($addr){
+		#reverse nibbles by Alnitak on http://stackoverflow.com/questions/6619682/convert-ipv6-to-nibble-format-for-ptr-records
+		$unpack = unpack('H*hex', $addr);
+		$hex = $unpack['hex'];
+		$arpa = implode('.', array_reverse(str_split($hex))) . '.ip6.arpa';
+		return $arpa;
+	}
+
+
 /**
  *
  * @package Piwik_IPv6Usage
@@ -74,10 +83,14 @@ class Piwik_IPv6Usage extends Piwik_Plugin
 			'module' => 'IPv6Usage',
 			'action' => 'get',
 			'metrics' => array(
-				'IPv6Usage_IPv4' => Piwik_Translate('IPv6Usage_IPv4'),
-				'IPv6Usage_IPv6' => Piwik_Translate('IPv6Usage_IPv6'),
-				'IPv6Usage_IPv4_rate' => Piwik_Translate('IPv6Usage_IPv4_rate'),
-				'IPv6Usage_IPv6_rate' => Piwik_Translate('IPv6Usage_IPv6_rate')
+				'IPv6Usage_IPv4'         => Piwik_Translate('IPv6Usage_IPv4'),
+				'IPv6Usage_IPv6'         => Piwik_Translate('IPv6Usage_IPv6'),
+				'IPv6Usage_Teredo'       => Piwik_Translate('IPv6Usage_Teredo'),
+				'IPv6Usage_Tun6to4'      => Piwik_Translate('IPv6Usage_Tun6to4'),
+				'IPv6Usage_IPv4_rate'    => Piwik_Translate('IPv6Usage_IPv4_rate'),
+				'IPv6Usage_IPv6_rate'    => Piwik_Translate('IPv6Usage_IPv6_rate'),
+				'IPv6Usage_Teredo_rate'  => Piwik_Translate('IPv6Usage_Teredo_rate'),
+				'IPv6Usage_Tun6to4_rate' => Piwik_Translate('IPv6Usage_Tun6to4_rate')
 			),
 			'processedMetrics' => false,
 			'order' => 40
@@ -108,6 +121,24 @@ class Piwik_IPv6Usage extends Piwik_Plugin
 		$ip = $visitorInfo['location_ip'];
 		// Check the type of the IP (v4 or v6)
 		$protocol = Piwik_IP::isIPv4($ip) ? 4 : 6;
+		#check if IPv6 is tunneled
+		if($protocol == 6) {
+			#::ffff:0:0/96	ipv4mapped
+			#$regex_ipv4map = '/(.f){4}(.0){20}.ip6.arpa$/i'; already detected by Piwik_IP::isIPv4
+
+			#2001::/32	teredo
+			$regex_teredo   = '/([0-9a-f].){24}0.0.0.0.1.0.0.2.ip6.arpa$/i';
+
+			#2002::/16	6to4
+			$regex_6to4     = '/([0-9a-f].){28}2.0.0.2.ip6.arpa$/i';
+
+			$rev_nibbles = ipv6_reverse_nibbles($ip);
+			if(preg_match($regex_teredo, $rev_nibbles)){
+				$protocol = 101;
+			} elseif(preg_match($regex_6to4, $rev_nibbles)){
+				$protocol = 102;
+			}
+		}
 		$visitorInfo['location_ip_protocol'] = $protocol;
 	}
 
@@ -115,6 +146,8 @@ class Piwik_IPv6Usage extends Piwik_Plugin
 		$ip = (!$ip) ? getenv("REMOTE_ADDR") : $ip;
 		return filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6);
 	}
+
+
 
 	function activate()
 	{
@@ -138,7 +171,9 @@ class Piwik_IPv6Usage extends Piwik_Plugin
 
 		$numericToSum = array(
 				'IPv6Usage_IPv4',
-				'IPv6Usage_IPv6'
+				'IPv6Usage_IPv6',
+				'IPv6Usage_Teredo',
+				'IPv6Usage_Tun6to4'
 		);
 		$archiveProcessing->archiveNumericValuesSum($numericToSum);
 	}
@@ -170,14 +205,24 @@ class Piwik_IPv6Usage extends Piwik_Plugin
 		$rowSet = $archiveProcessing->db->query($query['sql'], $query['bind']);
 
 		$data = array(
-			'IPv6Usage_IPv4' => 0,
-			'IPv6Usage_IPv6' => 0
+			'IPv6Usage_IPv4'    => 0,
+			'IPv6Usage_IPv6'    => 0,
+			'IPv6Usage_Teredo'  => 0,
+			'IPv6Usage_Tun6to4' => 0
 		);
 
 		while($row = $rowSet->fetch())
 		{
 			$key = sprintf("%s%d", 'IPv6Usage_IPv', $row['location_ip_protocol']);
-			$data[$key] = $row['count'];
+			if ($row['location_ip_protocol'] === "4"){
+				$data['IPv6Usage_IPv4'] = $row['count'];
+			} elseif ($row['location_ip_protocol'] === "6"){
+				$data['IPv6Usage_IPv6'] = $row['count'];
+			} elseif ($row['location_ip_protocol'] === "101"){
+				$data['IPv6Usage_Teredo'] = $row['count'];
+			} elseif ($row['location_ip_protocol'] === "102"){
+				$data['IPv6Usage_Tun6to4'] = $row['count'];
+			}
 		}
 
 		foreach($data as $key => $value)

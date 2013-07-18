@@ -8,7 +8,8 @@
  */
 
 /**
- * @package Piwik_IPv6Usage
+ * The IPv6Usage API lets you access the IPv6 access statistics of your site.
+ *
  */
 class Piwik_IPv6Usage_API
 {
@@ -63,6 +64,27 @@ class Piwik_IPv6Usage_API
 			));
 			$dataTable->addRow($newRow);
 		}
+                $teredo = $archive->getNumeric('IPv6Usage_Teredo');
+
+		if($teredo) {
+			$newRow = new Piwik_DataTable_Row();
+			$newRow->setColumns(array(
+				'label' => 'Teredo',
+				'nb_visits' => $teredo
+			));
+			$dataTable->addRow($newRow);
+		}
+                $tun6to4 = $archive->getNumeric('IPv6Usage_Tun6to4');
+
+		if($tun6to4) {
+			$newRow = new Piwik_DataTable_Row();
+			$newRow->setColumns(array(
+				'label' => 'Tun6to4',
+				'nb_visits' => $tun6to4
+			));
+			$dataTable->addRow($newRow);
+		}
+
                 return $dataTable;
 	}
 
@@ -77,7 +99,9 @@ class Piwik_IPv6Usage_API
 		if(empty($columns)) {
 			$columns = array(
 				'IPv6Usage_IPv4',
-				'IPv6Usage_IPv6'
+				'IPv6Usage_IPv6',
+				'IPv6Usage_Teredo',
+				'IPv6Usage_Tun6to4'
 			);
 		}
 
@@ -86,8 +110,10 @@ class Piwik_IPv6Usage_API
 
 		$dataTable = $archive->getDataTableFromNumeric($columns);
 
-		$dataTable->filter('ColumnCallbackAddColumnPercentage', array('IPv6Usage_IPv6_rate', 'IPv6Usage_IPv6', 'nb_visits', 2));
 		$dataTable->filter('ColumnCallbackAddColumnPercentage', array('IPv6Usage_IPv4_rate', 'IPv6Usage_IPv4', 'nb_visits', 2));
+		$dataTable->filter('ColumnCallbackAddColumnPercentage', array('IPv6Usage_IPv6_rate', 'IPv6Usage_IPv6', 'nb_visits', 2));
+		$dataTable->filter('ColumnCallbackAddColumnPercentage', array('IPv6Usage_Teredo_rate', 'IPv6Usage_Teredo', 'nb_visits', 2));
+		$dataTable->filter('ColumnCallbackAddColumnPercentage', array('IPv6Usage_Tun6to4_rate', 'IPv6Usage_Tun6to4', 'nb_visits', 2));
 
 		// Delete column
 		$dataTable->deleteColumn('nb_visits');

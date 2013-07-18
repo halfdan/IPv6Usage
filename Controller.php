@@ -18,7 +18,7 @@ class Piwik_IPv6Usage_Controller extends Piwik_Controller
 	public function index() {
 		$view = Piwik_View::factory('index');
 		$this->setPeriodVariablesView($view);
-		$view->graphIPv6UsageByProtocol = $this->getIPv6UsageEvolutionGraph( true, array('IPv6Usage_IPv4', 'IPv6Usage_IPv6') );
+		$view->graphIPv6UsageByProtocol = $this->getIPv6UsageEvolutionGraph( true, array('IPv6Usage_IPv4', 'IPv6Usage_IPv6', 'IPv6Usage_Teredo', 'IPv6Usage_Tun6to4') );
 		echo $view->render();
 	}
 
@@ -36,6 +36,8 @@ class Piwik_IPv6Usage_Controller extends Piwik_Controller
 		$selectableColumns = array(
 			'IPv6Usage_IPv4',
 			'IPv6Usage_IPv6',
+			'IPv6Usage_Teredo',
+			'IPv6Usage_Tun6to4',
 			'nb_visits',
 			'nb_uniq_visitors'
 		);

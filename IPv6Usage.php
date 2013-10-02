@@ -49,11 +49,11 @@ class Piwik_IPv6Usage extends Piwik_Plugin
 	{
 		return array(
 			'Tracker.newVisitorInformation' => 'logIPv6Info',
-			'ArchiveProcessing_Day.compute' => 'archiveDay',
-			'ArchiveProcessing_Period.compute' => 'archivePeriod',
+			'ArchiveProcessor.Day.compute' => 'archiveDay',
+			'ArchiveProcessor.Period.compute' => 'archivePeriod',
 			'WidgetsList.add' => 'addWidgets',
 			'API.getReportMetadata' => 'getReportMetadata',
-			'Menu.add' => 'addMenu'
+			'Menu.Reporting.addItems' => 'addMenu'
 		);
 	}
 

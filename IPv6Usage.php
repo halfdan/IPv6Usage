@@ -130,17 +130,6 @@ class IPv6Usage extends \Piwik\Plugin
         return filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6);
     }
 
-
-    function activate()
-    {
-        // Executed every time plugin is Enabled
-    }
-
-    function deactivate()
-    {
-        // Executed every time plugin is disabled
-    }
-
     /**
      * @param \Piwik\ArchiveProcessor\Period $archiveProcessor  notification object
      * @return mixed
@@ -175,8 +164,8 @@ class IPv6Usage extends \Piwik\Plugin
 				AND location_ip_protocol IS NOT NULL
 				GROUP BY location_ip_protocol";
 
-        $bind = array($archiveProcessor->getStartDatetimeUTC(),
-            $archiveProcessor->getEndDatetimeUTC(), $archiveProcessor->idsite);
+        $bind = array($archiveProcessor->getDateStart(),
+            $archiveProcessor->getDateEnd(), $archiveProcessor->getSite()->getId());
 
         $query = $archiveProcessor->getSegment()->getSelectQuery($select, $from, $where, $bind);
         $rowSet = $archiveProcessor->db->query($query['sql'], $query['bind']);

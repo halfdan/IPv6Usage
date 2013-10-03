@@ -1,0 +1,17 @@
+{
+    "IPv6Usage": {
+        "PluginDescription": "IPv6 Usage: This plugin shows the number of visits via IPv4 and IPv6",
+        "ProtocolUsageEvolution": "Evolução por versão do IP",
+        "WidgetDescription": "",
+        "WidgetProtocolDescription": "Protocolo IP por versão",
+        "IPv4": "IPv4",
+        "IPv6": "IPv6",
+        "Teredo": "Túnel Teredo",
+        "Tun6to4": "Túnel 6to4",
+        "IPv4_rate": "Percentagem de visitas IPv4",
+        "IPv6_rate": "Percentagem de visitas IPv6",
+        "Teredo_rate": "Percentagem de visitas Túnel Teredo",
+        "Tun6to4_rate": "Percentagem de visitas Túnel 6to4",
+        "IPProtocol": "IP Protocol"
+    }
+}

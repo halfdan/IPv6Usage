@@ -1,0 +1,13 @@
+{
+    "IPv6Usage": {
+        "PluginDescription": "IPv6 Usage: Dieses Plugin zeigt die Anzahl der Besuche durch IPv4 und IPv6",
+        "ProtocolUsageEvolution": "IP Protokoll Entwicklung",
+        "WidgetProtocolDescription": "IP Protokoll nach Version",
+        "IPv4": "IPv4",
+        "IPv6": "IPv6",
+        "IPv4_rate": "Anzahl von IPv4 Besuchern",
+        "IPv6_rate": "Anzahl von IPv6 Besuchern",
+        "IPProtocol": "IP Protokoll",
+        "Evolution": "Evolution"
+    }
+}

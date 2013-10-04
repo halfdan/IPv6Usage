@@ -168,7 +168,7 @@ class IPv6Usage extends \Piwik\Plugin
             $archiveProcessor->getDateEnd(), $archiveProcessor->getSite()->getId());
 
         $query = $archiveProcessor->getSegment()->getSelectQuery($select, $from, $where, $bind);
-        $rowSet = $archiveProcessor->db->query($query['sql'], $query['bind']);
+        $rowSet = \Piwik\Db::query($query['sql'], $query['bind']);
 
         $data = array(
             'IPv6Usage_IPv4' => 0,

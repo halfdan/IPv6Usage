@@ -1,5 +1,7 @@
 # IPv6Usage
 
+## Description
+
 This is a plugin for Piwik that generates reports about the IPv6 reach of your websites. It is written as a tracker plugin and directly hooks into the Piwik tracking call.
 
 ## Documentation
@@ -11,3 +13,7 @@ There is also a [short article](http://geekmonkey.org/articles/33-tracking-the-i
 ## Contribute 
 
 If you are interested in contributing to this plugin, feel free to send pull requests or create issues.
+
+## License
+
+GPLv3 or later

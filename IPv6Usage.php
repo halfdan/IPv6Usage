@@ -23,7 +23,7 @@ class IPv6Usage extends \Piwik\Plugin
             'Tracker.newVisitorInformation' => 'logIPv6Info',
             'ArchiveProcessor.Day.compute' => 'archiveDay',
             'ArchiveProcessor.Period.compute' => 'archivePeriod',
-            'WidgetsList.add' => 'addWidgets',
+            'WidgetsList.addWidgets' => 'addWidgets',
             'API.getReportMetadata' => 'getReportMetadata',
             'Menu.Reporting.addItems' => 'addMenu'
         );

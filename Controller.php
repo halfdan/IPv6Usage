@@ -50,18 +50,17 @@ class Controller extends \Piwik\Controller
 
     public function getIPv6UsageGraph($fetch = false)
     {
-        $view = \Piwik\ViewDataTable::factory('graphPie');
-        $view->init($this->pluginName, __FUNCTION__, 'IPv6Usage.getVisitsByProtocol');
+        $view = \Piwik\ViewDataTable::factory('graphPie', 'IPv6Usage.getVisitsByProtocol', 'IPv6Usage.getIPv6UsageGraph');
 
-        $view->setColumnTranslation('label', Piwik_Translate('IPv6Usage_IPProtocol'));
-        $view->setSortedColumn('label', 'asc');
+        $view->translations['label'] = Piwik_Translate('IPv6Usage_IPProtocol');
+        $view->filter_sort_column = 'label';
+        $view->filter_sort_order = 'asc';
+        $view->filter_limit = 2;
 
-        $view->setLimit(2);
-        $view->setGraphLimit(2);
-        $view->disableSearchBox();
-        $view->disableExcludeLowPopulation();
-        $view->disableOffsetInformationAndPaginationControls();
-        $this->setMetricsVariablesView($view);
+        $view->show_search = false;
+        $view->show_exclude_low_population = false;
+        $view->show_offset_information = false;
+
         return $this->renderView($view, $fetch);
     }
 }

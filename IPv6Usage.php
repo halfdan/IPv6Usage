@@ -9,6 +9,8 @@
  */
 namespace Piwik\Plugins\IPv6Usage;
 
+use Piwik\Piwik;
+use Piwik\Menu\MenuMain;
 use Piwik\WidgetsList;
 
 /**
@@ -49,19 +51,19 @@ class IPv6Usage extends \Piwik\Plugin
     public function getReportMetadata(&$reports)
     {
         $reports[] = array(
-            'category' => Piwik_Translate('General_Visitors'),
-            'name' => Piwik_Translate('IPv6Usage_ProtocolUsageEvolution'),
+            'category' => Piwik::translate('General_Visitors'),
+            'name' => Piwik::translate('IPv6Usage_ProtocolUsageEvolution'),
             'module' => 'IPv6Usage',
             'action' => 'get',
             'metrics' => array(
-                'IPv6Usage_IPv4' => Piwik_Translate('IPv6Usage_IPv4'),
-                'IPv6Usage_IPv6' => Piwik_Translate('IPv6Usage_IPv6'),
-                'IPv6Usage_Teredo' => Piwik_Translate('IPv6Usage_Teredo'),
-                'IPv6Usage_Tun6to4' => Piwik_Translate('IPv6Usage_Tun6to4'),
-                'IPv6Usage_IPv4_rate' => Piwik_Translate('IPv6Usage_IPv4_rate'),
-                'IPv6Usage_IPv6_rate' => Piwik_Translate('IPv6Usage_IPv6_rate'),
-                'IPv6Usage_Teredo_rate' => Piwik_Translate('IPv6Usage_Teredo_rate'),
-                'IPv6Usage_Tun6to4_rate' => Piwik_Translate('IPv6Usage_Tun6to4_rate')
+                'IPv6Usage_IPv4' => Piwik::translate('IPv6Usage_IPv4'),
+                'IPv6Usage_IPv6' => Piwik::translate('IPv6Usage_IPv6'),
+                'IPv6Usage_Teredo' => Piwik::translate('IPv6Usage_Teredo'),
+                'IPv6Usage_Tun6to4' => Piwik::translate('IPv6Usage_Tun6to4'),
+                'IPv6Usage_IPv4_rate' => Piwik::translate('IPv6Usage_IPv4_rate'),
+                'IPv6Usage_IPv6_rate' => Piwik::translate('IPv6Usage_IPv6_rate'),
+                'IPv6Usage_Teredo_rate' => Piwik::translate('IPv6Usage_Teredo_rate'),
+                'IPv6Usage_Tun6to4_rate' => Piwik::translate('IPv6Usage_Tun6to4_rate')
             ),
             'processedMetrics' => false,
             'order' => 40
@@ -82,7 +84,7 @@ class IPv6Usage extends \Piwik\Plugin
 
     public function addMenu()
     {
-        Piwik_AddMenu('General_Visitors', 'IPv6 Usage', array('module' => 'IPv6Usage', 'action' => 'index'));
+        MenuMain::getInstance()->add('General_Visitors', 'IPv6 Usage', array('module' => 'IPv6Usage', 'action' => 'index'));
     }
 
     /**

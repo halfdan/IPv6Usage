@@ -12,21 +12,8 @@ namespace Piwik\Plugins\IPv6Usage;
  * The IPv6Usage API lets you access the IPv6 access statistics of your site.
  *
  */
-class API
+class API extends \Piwik\Plugin\API
 {
-    private static $instance = null;
-
-    /**
-     * @return API
-     */
-    public static function getInstance()
-    {
-        if (self::$instance == null) {
-            self::$instance = new self;
-        }
-        return self::$instance;
-    }
-
     /**
 
      */

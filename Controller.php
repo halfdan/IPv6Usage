@@ -13,7 +13,7 @@ namespace Piwik\Plugins\IPv6Usage;
  *
  * @package Piwik_IPv6Usage
  */
-class Controller extends \Piwik\Controller
+class Controller extends \Piwik\Plugin\Controller
 {
 
     public function index()
@@ -31,7 +31,7 @@ class Controller extends \Piwik\Controller
             $columns = \Piwik\Piwik::getArrayFromApiParameter($columns);
         }
 
-        $documentation = Piwik_Translate('IPv6Usage_ProtocolUsageEvolution');
+        $documentation = \Piwik\Piwik::translate('IPv6Usage_ProtocolUsageEvolution');
 
         // Note: if you edit this array, maybe edit the code below as well
         $selectableColumns = array(
@@ -50,9 +50,9 @@ class Controller extends \Piwik\Controller
 
     public function getIPv6UsageGraph($fetch = false)
     {
-        $view = \Piwik\ViewDataTable::factory('graphPie', 'IPv6Usage.getVisitsByProtocol', 'IPv6Usage.getIPv6UsageGraph');
+        $view = \Piwik\Plugin\ViewDataTable::factory('graphPie', 'IPv6Usage.getVisitsByProtocol', 'IPv6Usage.getIPv6UsageGraph');
 
-        $view->translations['label'] = Piwik_Translate('IPv6Usage_IPProtocol');
+        $view->translations['label'] = \Piwik\Piwik::translate('IPv6Usage_IPProtocol');
         $view->filter_sort_column = 'label';
         $view->filter_sort_order = 'asc';
         $view->filter_limit = 2;

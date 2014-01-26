@@ -26,21 +26,10 @@ class Archiver extends \Piwik\Plugin\Archiver
 {
     public function aggregateDayReport()
     {
-        $archiveProcessor = $this->getProcessor();
-        $select = "location_ip_protocol, COUNT( location_ip_protocol ) as count";
-        $from = "log_visit";
-
-        $where = "log_visit.visit_last_action_time >= ?
-                                AND log_visit.visit_last_action_time <= ?
-                                AND log_visit.idsite = ?
-                                AND location_ip_protocol IS NOT NULL
-                                GROUP BY location_ip_protocol";
-
-        $bind = array($archiveProcessor->getDateStart(),
-            $archiveProcessor->getDateEnd(), $archiveProcessor->getSite()->getId());
-
-        $query = $archiveProcessor->getSegment()->getSelectQuery($select, $from, $where, $bind);
-        $rowSet = \Piwik\Db::query($query['sql'], $query['bind']);
+        $query = $this->getLogAggregator()->queryVisitsByDimension(array('location_ip_protocol'));
+        if($query == false) {
+            return;
+        }
 
         $data = array(
             'IPv6Usage_IPv4' => 0,
@@ -49,20 +38,20 @@ class Archiver extends \Piwik\Plugin\Archiver
             'IPv6Usage_Tun6to4' => 0
         );
 
-        while ($row = $rowSet->fetch()) {
-            if ($row['location_ip_protocol'] === "4") {
-                $data['IPv6Usage_IPv4'] = $row['count'];
-            } elseif ($row['location_ip_protocol'] === "6") {
-                $data['IPv6Usage_IPv6'] = $row['count'];
-            } elseif ($row['location_ip_protocol'] === "101") {
-                $data['IPv6Usage_Teredo'] = $row['count'];
-            } elseif ($row['location_ip_protocol'] === "102") {
-                $data['IPv6Usage_Tun6to4'] = $row['count'];
+        while ($row = $query->fetch()) {
+            if ($row['location_ip_protocol'] === 4) {
+                $data['IPv6Usage_IPv4'] = $row[Metrics::INDEX_NB_VISITS];
+            } elseif ($row['location_ip_protocol'] === 6) {
+                $data['IPv6Usage_IPv6'] = $row[Metrics::INDEX_NB_VISITS];
+            } elseif ($row['location_ip_protocol'] === 101) {
+                $data['IPv6Usage_Teredo'] = $row[Metrics::INDEX_NB_VISITS];
+            } elseif ($row['location_ip_protocol'] === 102) {
+                $data['IPv6Usage_Tun6to4'] = $row[Metrics::INDEX_NB_VISITS];
             }
         }
 
         foreach ($data as $key => $value) {
-            $archiveProcessor->insertNumericRecord($key, $value);
+            $this->getProcessor()->insertNumericRecord($key, $value);
         }
     }
 

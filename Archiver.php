@@ -39,13 +39,13 @@ class Archiver extends \Piwik\Plugin\Archiver
         );
 
         while ($row = $query->fetch()) {
-            if ($row['location_ip_protocol'] === 4) {
+            if ($row['location_ip_protocol'] == 4) {
                 $data['IPv6Usage_IPv4'] = $row[Metrics::INDEX_NB_VISITS];
-            } elseif ($row['location_ip_protocol'] === 6) {
+            } elseif ($row['location_ip_protocol'] == 6) {
                 $data['IPv6Usage_IPv6'] = $row[Metrics::INDEX_NB_VISITS];
-            } elseif ($row['location_ip_protocol'] === 101) {
+            } elseif ($row['location_ip_protocol'] == 101) {
                 $data['IPv6Usage_Teredo'] = $row[Metrics::INDEX_NB_VISITS];
-            } elseif ($row['location_ip_protocol'] === 102) {
+            } elseif ($row['location_ip_protocol'] == 102) {
                 $data['IPv6Usage_Tun6to4'] = $row[Metrics::INDEX_NB_VISITS];
             }
         }

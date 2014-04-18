@@ -50,7 +50,7 @@ class Controller extends \Piwik\Plugin\Controller
 
     public function getIPv6UsageGraph($fetch = false)
     {
-        $view = \Piwik\Plugin\ViewDataTable::factory('graphPie', 'IPv6Usage.getVisitsByProtocol', 'IPv6Usage.getIPv6UsageGraph');
+        $view = \Piwik\ViewDataTable\Factory::build('graphPie', 'IPv6Usage.getVisitsByProtocol', 'IPv6Usage.getIPv6UsageGraph');
 
         $view->translations['label'] = \Piwik\Piwik::translate('IPv6Usage_IPProtocol');
         $view->filter_sort_column = 'label';

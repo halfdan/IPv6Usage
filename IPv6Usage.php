@@ -19,13 +19,11 @@ use Piwik\WidgetsList;
  */
 class IPv6Usage extends \Piwik\Plugin
 {
+
     public function getListHooksRegistered()
     {
         return array(
-            'Tracker.newVisitorInformation' => 'logIPv6Info',
-            'WidgetsList.addWidgets' => 'addWidgets',
-            'API.getReportMetadata' => 'getReportMetadata',
-            'Menu.Reporting.addItems' => 'addMenu'
+            'Tracker.newVisitorInformation' => 'logIPv6Info'
         );
     }
 
@@ -80,10 +78,12 @@ class IPv6Usage extends \Piwik\Plugin
         WidgetsList::add('General_Visitors', 'IPv6Usage_WidgetProtocolDescription', 'IPv6Usage', 'getIPv6UsageGraph');
     }
 
+/*
     public function addMenu()
     {
-        MenuMain::getInstance()->add('General_Visitors', 'IPv6 Usage', array('module' => 'IPv6Usage', 'action' => 'index'));
+        MenuMain::getInstance()->addVisitorsItem('Visitors','IPv6 Usage', array('module' => 'IPv6Usage', 'action' => 'index'));
     }
+*/
 
     /**
      * @param array $visitorInfo

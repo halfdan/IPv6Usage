@@ -72,19 +72,6 @@ class IPv6Usage extends \Piwik\Plugin
         \Piwik\Db::exec($query);
     }
 
-    public function addWidgets()
-    {
-        WidgetsList::add('General_Visitors', 'IPv6Usage_ProtocolUsageEvolution', 'IPv6Usage', 'getIPv6UsageEvolutionGraph', array('columns' => array('IPv6Usage_IPv6')));
-        WidgetsList::add('General_Visitors', 'IPv6Usage_WidgetProtocolDescription', 'IPv6Usage', 'getIPv6UsageGraph');
-    }
-
-/*
-    public function addMenu()
-    {
-        MenuMain::getInstance()->addVisitorsItem('Visitors','IPv6 Usage', array('module' => 'IPv6Usage', 'action' => 'index'));
-    }
-*/
-
     /**
      * @param array $visitorInfo
      */

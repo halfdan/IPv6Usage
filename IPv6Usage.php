@@ -80,8 +80,10 @@ class IPv6Usage extends \Piwik\Plugin
         // Fetch the users ip
         $ip = $visitorInfo['location_ip'];
         // Check the type of the IP (v4 or v6)
+        $protocol = 4;
         $ip = \Piwik\Network\IP::fromBinaryIP($ip);
         if ($ip instanceof \Piwik\Network\IPv6) {
+            $protocol = 6;
             #::ffff:0:0/96	ipv4mapped
             #$regex_ipv4map = '/(.f){4}(.0){20}.ip6.arpa$/i'; already detected by Piwik_IP::isIPv4
 

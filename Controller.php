@@ -26,10 +26,18 @@ class Controller extends \Piwik\Plugin\Controller
 
     public function getIPv6UsageEvolutionGraph($fetch = false, $columns = false)
     {
-        if (empty($columns)) {
-            $columns = \Piwik\Common::getRequestVar('columns');
-            $columns = \Piwik\Piwik::getArrayFromApiParameter($columns);
+        if($columns === false) {
+            $columns = \Piwik\Common::getRequestVar('columns', false);
         }
+        if (empty($columns)) {
+            $columns = array(
+                'IPv6Usage_IPv4',
+                'IPv6Usage_IPv6',
+                'IPv6Usage_Teredo',
+                'IPv6Usage_Tun6to4'
+            );
+        }
+        $columns = \Piwik\Piwik::getArrayFromApiParameter($columns);
 
         $documentation = \Piwik\Piwik::translate('IPv6Usage_ProtocolUsageEvolution');
 
@@ -44,7 +52,7 @@ class Controller extends \Piwik\Plugin\Controller
         );
 
         $view = $this->getLastUnitGraphAcrossPlugins($this->pluginName, __FUNCTION__, $columns,
-            $selectableColumns, $documentation);
+            $selectableColumns, $documentation, "IPv6Usage.get");
         return $this->renderView($view, $fetch);
     }
 

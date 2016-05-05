@@ -1,0 +1,16 @@
+{
+    "IPv6Usage": {
+        "PluginDescription": "IPv6 Gebruik: Deze plugin laat zien hoeveel gebruikers er gebruik maken van IPv4 en IPv6.",
+        "ProtocolUsageEvolution": "IP Protocol Evolutie",
+        "WidgetDescription": "",
+        "WidgetProtocolDescription": "IP Protocol via versie",
+        "IPv4": "IPv4",
+        "IPv6": "IPv6",
+        "Teredo": "Tunnel Teredo",
+        "Tun6to4": "Tunnel 6to4",
+        "IPv4_rate": "Aantal IPv4 bezoeken",
+        "IPv6_rate": "Aantal IPv6 bezoeken",
+        "IPProtocol": "IP Protocol",
+        "Evolution": "Evolutie"
+    }
+}

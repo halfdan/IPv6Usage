@@ -1,7 +1,7 @@
 {
     "name": "IPv6Usage",
     "description": "Piwik Plugin to track whether visitors are using IPv4 or IPv6",
-    "version": "0.8.0",
+    "version": "0.8.1",
     "keywords": ["ipv4", "ipv6"],
     "homepage": "http://github.com/halfdan/IPv6Usage",
     "license": "GPL-3.0+",

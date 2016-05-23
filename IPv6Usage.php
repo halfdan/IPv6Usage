@@ -82,10 +82,8 @@ class IPv6Usage extends \Piwik\Plugin
         // Check the type of the IP (v4 or v6)
         $protocol = 4;
         $ip = \Piwik\Network\IP::fromBinaryIP($ip);
-        if ($ip instanceof \Piwik\Network\IPv6) {
+        if ($ip instanceof \Piwik\Network\IPv6 && !$ip->isMappedIPv4()) {
             $protocol = 6;
-            #::ffff:0:0/96	ipv4mapped
-            #$regex_ipv4map = '/(.f){4}(.0){20}.ip6.arpa$/i'; already detected by Piwik_IP::isIPv4
 
             #2001::/32	teredo
             $regex_teredo = '/([0-9a-f].){24}0.0.0.0.1.0.0.2.ip6.arpa$/i';
